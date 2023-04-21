@@ -1,0 +1,16 @@
+.container { text-align: center; }
+.site{ font-family:Arial, Helvetica, sans-serif;}
+.site { text-align: center; }
+
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+h1{
+color:#9400D3
+}
+p{
+    color:black
+}
+#descricao-noticia{
+    background-color:#DCDCDC ;
+}
