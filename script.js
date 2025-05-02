@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elementos do DOM
+    
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     const resultAmount = document.querySelector('.amount');
@@ -12,24 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
         comparacao: document.getElementById('comparacaoForm')
     };
 
-    // Tabela de IR para CDB
+    
     const tabelaIR = {
-        180: 22.5,  // 22.5% para até 180 dias
-        360: 20,    // 20% para 181 a 360 dias
-        720: 17.5,  // 17.5% para 361 a 720 dias
-        9999: 15    // 15% para mais de 720 dias
+        180: 22.5,  
+        360: 20,    
+        720: 17.5,  
+        9999: 15    
     };
 
-    // Gerenciamento de abas
+    
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const tabId = button.dataset.tab;
 
-            // Atualiza botões
+            
             tabButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
-            // Atualiza conteúdo
+            
             tabContents.forEach(content => {
                 content.classList.remove('active');
                 if (content.id === tabId) {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Formatação de valores monetários
+    
     const formatCurrency = (value) => {
         return new Intl.NumberFormat('pt-BR', {
             style: 'currency',
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).format(value);
     };
 
-    // Formatação de percentuais
+    
     const formatPercent = (value) => {
         return new Intl.NumberFormat('pt-BR', {
             style: 'percent',
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).format(value / 100);
     };
 
-    // Animação de contagem
+    
     const animateValue = (element, start, end, duration, isPercent = false) => {
         let startTimestamp = null;
         const step = (timestamp) => {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.requestAnimationFrame(step);
     };
 
-    // Cálculo de Juros Compostos
+    
     const calcularJurosCompostos = (capital, taxa, tempo) => {
         const taxaDecimal = taxa / 100;
         const montante = capital * Math.pow(1 + taxaDecimal, tempo);
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { montante, juros };
     };
 
-    // Cálculo de Investimento
+    
     const calcularInvestimento = (valor, taxa, tempo) => {
         const taxaDecimal = taxa / 100;
         const montante = valor * Math.pow(1 + taxaDecimal, tempo);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { montante, juros };
     };
 
-    // Cálculo de Empréstimo
+    
     const calcularEmprestimo = (valor, taxa, parcelas) => {
         const taxaDecimal = taxa / 100;
         const pmt = valor * (taxaDecimal * Math.pow(1 + taxaDecimal, parcelas)) / (Math.pow(1 + taxaDecimal, parcelas) - 1);
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return { total, juros, pmt };
     };
 
-    // Cálculo do CDB
+    
     const calcularCDB = (valor, prazo, taxaCDI, percentualCDI) => {
         const taxaEfetiva = (taxaCDI * percentualCDI) / 100;
         const taxaDiaria = Math.pow(1 + taxaEfetiva / 100, 1 / 252) - 1;
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const montante = valor * Math.pow(1 + taxaDiaria, dias);
         const rendimentoBruto = montante - valor;
 
-        // Determina a alíquota de IR
+        
         let aliquotaIR = 0;
         for (const [diasLimite, aliquota] of Object.entries(tabelaIR)) {
             if (prazo <= parseInt(diasLimite)) {
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    // Cálculo de outro investimento para comparação
+    
     const calcularOutroInvestimento = (valor, prazo, taxa) => {
         const taxaDiaria = Math.pow(1 + taxa / 100, 1 / 252) - 1;
         const dias = prazo;
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    // Atualização dos resultados
+    
     const updateResults = (resultado) => {
         const startValue = parseFloat(resultAmount.textContent.replace(/[^\d,-]/g, '').replace(',', '.'));
         animateValue(resultAmount, startValue, resultado.montante, 1000);
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Event Listeners para os formulários
+    
     forms.juros.addEventListener('submit', (e) => {
         e.preventDefault();
         const capital = parseFloat(document.getElementById('capital').value);
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateComparisonChart(resultadoCDB, resultadoOutro);
     });
 
-    // Configuração do gráfico de comparação
+    
     let comparisonChart = null;
     const updateComparisonChart = (cdb, outro) => {
         const ctx = document.getElementById('comparisonChart').getContext('2d');
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Validação de campos
+    
     const inputs = document.querySelectorAll('input[type="number"]');
     inputs.forEach(input => {
         input.addEventListener('input', (e) => {
